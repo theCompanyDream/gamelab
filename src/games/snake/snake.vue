@@ -6,9 +6,10 @@
   </main>
 </template>
 <script setup lang="js">
-import { onMounted, onUnmounted } from "vue"
+import { onMounted, onUnmounted, ref } from "vue"
 import g from "./useSnakeLogic.js"
 let animFrameId
+const score = ref(0)
 
 onMounted(() => {
   g.config = {

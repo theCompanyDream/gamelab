@@ -356,7 +356,7 @@ Snake Tile Entity
     this.elem.style.top = this.y + 'px';
     this.elem.style.width = this.w + 'px';
     this.elem.style.height = this.h + 'px';
-    this.elem.style.backgroundColor = 'rgba(255, 255, 255, ' + this.alpha + ')';
+    this.elem.style.backgroundColor = 'rgba(0, 0, 0, ' + this.alpha + ')';
     this.elem.style.boxShadow = '0 0 ' + this.blur + 'px #fff';
     this.elem.style.borderRadius = this.borderRadius;
   };
