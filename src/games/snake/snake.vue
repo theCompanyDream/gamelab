@@ -1,13 +1,14 @@
 <template>
-    <main>
-        <div class="score">0</div>
-        <div class="score">Total Score</div>
-        <div class="stage"></div>
-    </main>
+  <main>
+    <div class="score">0</div>
+    <div class="score">Total Score</div>
+    <div class="stage"></div>
+  </main>
 </template>
-<script>
-import { onMounted } from 'vue';
-import g from './script.js'
+<script setup lang="js">
+import { onMounted, onUnmounted } from "vue"
+import g from "./useSnakeLogic.js"
+let animFrameId
 
 onMounted(() => {
   g.config = {
@@ -15,18 +16,20 @@ onMounted(() => {
     debug: window.location.hash == '#debug' ? 1 : 0,
     state: 'play'
   };
+  g.setState(g.config.state)
 
-  g.setState( g.config.state );
-
-  g.time = new g.Time();
-
+  g.time = new g.Time()
   g.step = function() {
-    requestAnimationFrame( g.step );
-    g.states[ g.state ].step();
-    g.time.update();
-  };
+    animFrameId = requestAnimationFrame(g.step)
+    g.states[g.state].step()
+    g.time.update()
+  }
+  g.step()
+})
 
-  window.addEventListener( 'load', g.step, false );
+onUnmounted(() => {
+  g.states['play'].exit()  // this already cleans up keydown/resize listeners
+  cancelAnimationFrame(animFrameId)
 })
 </script>
 <style scoped>
